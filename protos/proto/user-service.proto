@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option go_package = "./protos/generated";
+
+// .. protos that handle user related operations like
+// .. registration
+// .. updating users data
+// .. login
+
+// request (Messages) :
+message RegisterUserRequest {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+}
+
+message LoginUserRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message UpdateUserRequest {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+}
+
+// response (Messages) :
+message RegisterUserResponse {
+    string userId = 1;
+    bool success = 2;
+}
+
+message LoginUserResponse {
+    string userId = 1;
+    string sessionId = 2;
+    bool success = 3;
+}
+
+message UpdateUserResponse {
+    string userId = 1;
+    bool success = 2;
+}
+
+// request (RPC Methods) :
+service UserService {
+    // register new user
+    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+
+    // Update a new user ( depends on the above rpc method )
+    rpc UpdateUserDetails(UpdateUserRequest) returns (UpdateUserResponse);
+
+    // login as a user
+    rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+}
+
