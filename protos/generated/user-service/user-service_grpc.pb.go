@@ -4,7 +4,7 @@
 // - protoc             v5.28.1
 // source: protos/proto/user-service.proto
 
-package generated
+package user_service
 
 import (
 	context "context"
@@ -28,7 +28,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// request (RPC Methods) :
+// RPC Methods :
 type UserServiceClient interface {
 	// register new user
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
@@ -80,7 +80,7 @@ func (c *userServiceClient) LoginUser(ctx context.Context, in *LoginUserRequest,
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 //
-// request (RPC Methods) :
+// RPC Methods :
 type UserServiceServer interface {
 	// register new user
 	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)

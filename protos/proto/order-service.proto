@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "./protos/generated/order-service";
+
+// .. protos for handling orders at a book store
+// .. request for placing orders
+// .. getting the order status
+
+message PlaceOrderRequest{
+    string userId = 1;
+    string bookId = 2;
+    int32 quantity = 3;
+}
+
+message OrderStatusRequest{
+    string userId = 1;
+    string orderId = 2; 
+}
+
+message OrderHistoryRequest{
+    string userId = 1;
+}
+
+// repsonse protos
+message PlaceOrderResponse{
+    bool available = 1;
+    int32 availableQuantity = 2;
+    bool orderPlaced = 3;
+}
+
+message OrderStatusResponse{
+    string toi = 1;  // time of initiation
+    bool dispatched = 2;
+    bool arrived = 3;
+}
+
+message OrderDataRequest{
+    string orderId = 1;
+}
+
+message OrderDataResponse{
+    string orderId = 1;
+    string orderData = 2;
+    repeated string bookIds = 3;
+    bool dispatched = 4;
+    bool shipped = 5;
+}
+
+// will store the history of orders seperately
+message OrderHistoryResponse{
+    // array of orderIds
+    repeated string OrderIds = 1;
+}
+
+service OrderService{
+
+    rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse); // update stock from book inventory service, but we handle seperately
+
+    rpc OrderStatus(OrderStatusRequest) returns (OrderStatusResponse);
+
+    rpc OrderHistory(OrderHistoryRequest) returns (OrderHistoryResponse);
+
+    rpc OrderData(OrderDataRequest) returns (OrderDataResponse); // get data of each order individually
+
+}
+
+

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./protos/generated";
+option go_package = "./protos/generated/user-service";
 
 // .. protos that handle user related operations like
 // .. registration
@@ -42,7 +42,7 @@ message UpdateUserResponse {
     bool success = 2;
 }
 
-// request (RPC Methods) :
+// RPC Methods :
 service UserService {
     // register new user
     rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
