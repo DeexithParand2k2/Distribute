@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option go_package = "./protos/generated/book-inventory-service";
+
+// .. protos for handling ops at a book store
+// .. check availability of a book
+// .. request to add a book
+
+// request (Messages)
+message BookAvailabilityRequest{
+    string bookId = 1;
+}
+
+message AddBookRequest{
+    string title = 1;
+    string author = 2;
+    int32 stock = 3;
+}
+
+message BookAvailabilityResponse{
+    bool available = 1;
+    bool rented = 2; // rented by someone
+    bool inStock = 3; // no yet at library
+    string dateOfRent = 4;
+    string dateOfReturn = 5; // depends on `rented` variables
+}
+
+message AddBookResponse{
+    string bookId = 1;
+}
+
+message GetActionRequest{
+    string actionId = 1;
+}
+
+// list the corresponding action to perform
+message GetActionResponse{
+    string action = 1;
+    string actionId = 2;
+}
+
+message UpdateStockRequest{
+    string bookId = 1;
+    string actionId = 2;
+}
+
+message UpdateStockResponse{
+    string bookId = 1;
+    string actionId = 2;
+    bool completed = 3;
+}
+
+// request (rpc methods)
+service BookInventoryService {
+    rpc CheckBookAvailability(BookAvailabilityRequest) returns (BookAvailabilityResponse);
+
+    rpc AddBook(AddBookRequest) returns (AddBookResponse);
+
+    rpc GetActionId (GetActionRequest) returns (GetActionResponse);
+
+    rpc UpdateStock(AddBookResponse) returns (AddBookResponse);
+}

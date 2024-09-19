@@ -1,0 +1,3 @@
+Proto Compilation Commands
+
+protoc --go_out=. --go-grpc_out=. protos/proto/*.proto ( Input relative to from where you execute )
